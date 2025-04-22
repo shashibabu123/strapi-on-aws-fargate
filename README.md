@@ -6,7 +6,10 @@ This project automates the deployment of a **Strapi CMS** application using **AW
 
 ## 📁 Project Structure
 
-strapi-on-aws-fargate/ │ ├── .gitignore # Ignore Terraform state and cache files ├── README.md # This documentation │ ├── main.tf # Root Terraform configuration ├── providers.tf # AWS provider configuration ├── variables.tf # Input variables ├── outputs.tf # Output values │ ├── iam.tf # IAM roles for ECS and task execution ├── ecs.tf # ECS Cluster, Task Definition, Fargate Service ├── alb.tf # Application Load Balancer, Target Group, Listener │ ├── terraform.tfstate* # Terraform state file (should not be committed) ├── terraform.tfstate.backup* # Backup of previous state (should not be committed) └── terraform.tfstate..backup # Auto backups by Terraform
+strapi-on-aws-fargate/ 
+│ ├── .gitignore # Ignore Terraform state and cache files
+├── README.md # This documentation
+│ ├── main.tf # Root Terraform configuration ├── providers.tf # AWS provider configuration ├── variables.tf # Input variables ├── outputs.tf # Output values │ ├── iam.tf # IAM roles for ECS and task execution ├── ecs.tf # ECS Cluster, Task Definition, Fargate Service ├── alb.tf # Application Load Balancer, Target Group, Listener │ ├── terraform.tfstate* # Terraform state file (should not be committed) ├── terraform.tfstate.backup* # Backup of previous state (should not be committed) └── terraform.tfstate..backup # Auto backups by Terraform
 
 
 
