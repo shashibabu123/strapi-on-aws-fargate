@@ -1,6 +1,6 @@
 # ALB Security Group (allows internet traffic on ports 80 and 1337)
 resource "aws_security_group" "strapi_alb_sg" {
-  name        = "strapi-alb-sg-shashi"
+  name        = "strapi-alb-sg-shashi-spot"
   description = "Allow HTTP traffic to ALB"
   vpc_id      = var.vpc_id
 
@@ -28,7 +28,7 @@ resource "aws_security_group" "strapi_alb_sg" {
 
 # ECS Task Security Group (allows only ALB to connect on port 1337)
 resource "aws_security_group" "strapi_sg" {
-  name        = "strapi-sg-shashi"
+  name        = "strapi-sg-shashi-spot"
   description = "Allow Strapi traffic from ALB"
   vpc_id      = var.vpc_id
 
@@ -49,11 +49,11 @@ resource "aws_security_group" "strapi_sg" {
 
 # Application Load Balancer
 resource "aws_lb" "strapi_alb" {
-  name               = "strapi-alb"
+  name               = "strapi-alb-spot"
   internal           = false
   load_balancer_type = "application"
-  # security_groups    = [aws_security_group.strapi_alb_sg.id]
-  security_groups = ["sg-087a419c5a81404bd"] # <- Use the correct one you want
+   security_groups    = [aws_security_group.strapi_alb_sg.id]
+  #security_groups = ["sg-087a419c5a81404bd"] # <- Use the correct one you want
   subnets            = var.subnet_ids
   
    depends_on = [aws_security_group.strapi_alb_sg]
@@ -61,7 +61,7 @@ resource "aws_lb" "strapi_alb" {
 
 # Target Group for ECS
 resource "aws_lb_target_group" "strapi_tg" {
-  name        = "strapi-tg"
+  name        = "strapi-tg-spot"
   port        = 1337
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
