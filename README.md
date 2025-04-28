@@ -1,3 +1,62 @@
+The main difference between **Fargate** and **Spot Fargate** lies in the pricing model and availability of compute resources. Here's a detailed breakdown:
+
+### **1. Fargate:**
+**Fargate** is a fully managed compute engine that allows you to run containers without having to manage the underlying EC2 instances. It abstracts away the infrastructure management, and you only pay for the resources your containers use.
+
+#### Key Features:
+- **Pricing:** You pay for the CPU and memory resources that your containers consume while they are running.
+- **Availability:** Fargate ensures that your containers are always available and provides guaranteed capacity for your workloads.
+- **Use Case:** Fargate is ideal for production workloads that require guaranteed availability and cannot afford interruptions.
+- **Launch Type:** It can be used with both ECS (Elastic Container Service) and EKS (Elastic Kubernetes Service).
+
+#### Pros:
+- No need to manage EC2 instances.
+- Automatically scales based on container usage.
+- Ideal for workloads that require consistent, predictable performance.
+
+#### Cons:
+- Generally more expensive than Spot Fargate.
+
+### **2. Spot Fargate:**
+**Spot Fargate** leverages **AWS Spot Instances**, which allows you to run Fargate tasks on spare compute capacity in AWS. Spot instances are typically much cheaper than regular on-demand instances, but AWS can interrupt the spot instance if the capacity is needed for other tasks.
+
+#### Key Features:
+- **Pricing:** You pay a much lower price compared to the standard Fargate (up to 70-90% cheaper). Spot Fargate uses AWS's spare capacity and offers a discounted rate for using that capacity.
+- **Availability:** Spot Fargate can be interrupted if AWS needs the capacity back, so tasks may stop unexpectedly. AWS provides a two-minute warning before an interruption occurs.
+- **Use Case:** Spot Fargate is best for workloads that are fault-tolerant and can handle interruptions, such as batch jobs, big data processing, or non-critical applications.
+- **Launch Type:** Works exclusively with ECS (Elastic Container Service) for task scheduling.
+
+#### Pros:
+- Significant cost savings compared to regular Fargate.
+- Same Fargate benefits (like containerized management and no infrastructure management).
+- Can still scale automatically based on task requirements.
+
+#### Cons:
+- **Interruption Risk:** Spot Fargate can be interrupted, meaning that workloads running on Spot capacity could stop abruptly if AWS needs to reclaim the compute resources.
+- Not suitable for critical, real-time, or production workloads that cannot tolerate interruptions.
+
+### **Key Differences Summary:**
+
+| Feature             | Fargate                          | Spot Fargate                        |
+|---------------------|----------------------------------|-------------------------------------|
+| **Pricing**         | Pay for the exact resources used | Pay up to 70-90% less than Fargate  |
+| **Availability**    | Guaranteed resource availability | Resources can be interrupted by AWS |
+| **Use Case**        | Ideal for production workloads  | Best for fault-tolerant, non-critical workloads |
+| **Capacity**        | Always available                 | Can be interrupted and terminated  |
+| **Use in ECS/EKS**  | Available in both ECS and EKS    | Only available in ECS               |
+
+### **When to use Fargate vs. Spot Fargate:**
+
+- **Use Fargate** when you need guaranteed availability and cannot tolerate interruptions, such as for production workloads, real-time applications, and customer-facing services.
+  
+- **Use Spot Fargate** when you are working with batch jobs, background processing, data processing, or non-production workloads that can tolerate interruptions and require cost efficiency.
+
+
+
+
+
+
+
 ### Documentation: Deploying Strapi Application on AWS Using ECS Spot Fargate Managed by Terraform
 
 ---
